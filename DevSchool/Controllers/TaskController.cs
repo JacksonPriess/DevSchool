@@ -22,34 +22,24 @@ namespace DevSchool.Controllers
             List<DevSchool.Models.Task> TaskInfo = new List<DevSchool.Models.Task>();
 
             using (var client = new HttpClient())
-            {
-                //Passing service base url  
+            {                
                 client.BaseAddress = new Uri(baseUrl);
-                client.DefaultRequestHeaders.Clear();
-                //Define request data format  
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //Sending request to find web api REST service resource Task using HttpClient  
+                client.DefaultRequestHeaders.Clear();                
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
                 HttpResponseMessage Res = await client.GetAsync("api/Task");
-
-                //Checking the response is successful or not which is sent using HttpClient  
+                
                 if (Res.IsSuccessStatusCode)
-                {
-                    //Storing the response details recieved from web api   
-                    var TaskResponse = Res.Content.ReadAsStringAsync().Result;
-
-                    //Deserializing the response recieved from web api and storing into the Employee list  
+                {                    
+                    var TaskResponse = Res.Content.ReadAsStringAsync().Result;                 
                     TaskInfo = JsonConvert.DeserializeObject<List<DevSchool.Models.Task>>(TaskResponse);
 
-                }
-                //returning the employee list to view  
-                return View(TaskInfo);
+                }                                
             }
+            return View(TaskInfo);
         }
 
         // GET: Task/Details/5
-        public async Task<ActionResult> Details(int? id)
-        //public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)        
         {
             if (id == null)
             {
@@ -59,28 +49,19 @@ namespace DevSchool.Controllers
             DevSchool.Models.Task TaskInfo = new DevSchool.Models.Task();
 
             using (var client = new HttpClient())
-            {
-                //Passing service base url  
+            {                
                 client.BaseAddress = new Uri(baseUrl);
-                client.DefaultRequestHeaders.Clear();
-                //Define request data format  
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //Sending request to find web api REST service resource Task using HttpClient  
+                client.DefaultRequestHeaders.Clear();                
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
                 HttpResponseMessage Res = await client.GetAsync("api/Task" + "/" + id.ToString());
-
-                //Checking the response is successful or not which is sent using HttpClient  
+                
                 if (Res.IsSuccessStatusCode)
-                {
-                    //Storing the response details recieved from web api   
-                    var TaskResponse = Res.Content.ReadAsStringAsync().Result;
-
-                    //Deserializing the response recieved from web api and storing into the Employee list  
+                {                    
+                    var TaskResponse = Res.Content.ReadAsStringAsync().Result;                 
                     TaskInfo = JsonConvert.DeserializeObject<DevSchool.Models.Task>(TaskResponse);
-                }
-
-                return View(TaskInfo);
+                }                
             }
+            return View(TaskInfo);
         }       
 
         public ActionResult Create()
@@ -88,9 +69,7 @@ namespace DevSchool.Controllers
             return View();
         }
 
-        // POST: Movies/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Movies/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,Title,Description,Status,CreationDate")] DevSchool.Models.Task task)
@@ -109,11 +88,9 @@ namespace DevSchool.Controllers
 
             return View(task);
         }
-
-        // GET: Movies/Edit/5
+        
         // GET: Task/Details/5
-        public async Task<ActionResult> Edit(int? id)
-        //public ActionResult Details(int? id)
+        public async Task<ActionResult> Edit(int? id)        
         {
             if (id == null)
             {
@@ -123,33 +100,23 @@ namespace DevSchool.Controllers
             DevSchool.Models.Task TaskInfo = new DevSchool.Models.Task();
 
             using (var client = new HttpClient())
-            {
-                //Passing service base url  
+            {        
                 client.BaseAddress = new Uri(baseUrl);
-                client.DefaultRequestHeaders.Clear();
-                //Define request data format  
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //Sending request to find web api REST service resource Task using HttpClient  
+                client.DefaultRequestHeaders.Clear();                
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
                 HttpResponseMessage Res = await client.GetAsync("api/Task" + "/" + id.ToString());
-
-                //Checking the response is successful or not which is sent using HttpClient  
+                                
                 if (Res.IsSuccessStatusCode)
-                {
-                    //Storing the response details recieved from web api   
-                    var TaskResponse = Res.Content.ReadAsStringAsync().Result;
-
-                    //Deserializing the response recieved from web api and storing into the Employee list  
+                {                    
+                    var TaskResponse = Res.Content.ReadAsStringAsync().Result;                 
                     TaskInfo = JsonConvert.DeserializeObject<DevSchool.Models.Task>(TaskResponse);
-                }
-
-                return View(TaskInfo);
+                }                                
             }
+
+            return View(TaskInfo);
         }
 
-        // POST: Movies/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Movies/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,Title,Description,Status,CreationDate")] DevSchool.Models.Task task)
@@ -160,6 +127,7 @@ namespace DevSchool.Controllers
                 {
                     HttpResponseMessage responseMessage =
                         await client.PutAsJsonAsync(baseUrl + "/api/Task/" + task.Id, task);
+
                     if (responseMessage.IsSuccessStatusCode)
                     {
                         //MessageBox.Show("Produto atualizado");
@@ -168,14 +136,12 @@ namespace DevSchool.Controllers
                     {
                         //MessageBox.Show("Falha ao atualizar o produto : " + responseMessage.StatusCode);
                     }
-                }
-                return RedirectToAction("Index");
+                }                
             }
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Delete(int? id)
-        //public ActionResult Details(int? id)
+        public async Task<ActionResult> Delete(int? id)        
         {
             if (id == null)
             {
@@ -185,28 +151,20 @@ namespace DevSchool.Controllers
             DevSchool.Models.Task TaskInfo = new DevSchool.Models.Task();
 
             using (var client = new HttpClient())
-            {
-                //Passing service base url  
+            {                
                 client.BaseAddress = new Uri(baseUrl);
-                client.DefaultRequestHeaders.Clear();
-                //Define request data format  
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //Sending request to find web api REST service resource Task using HttpClient  
+                client.DefaultRequestHeaders.Clear();                
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
                 HttpResponseMessage Res = await client.GetAsync("api/Task" + "/" + id.ToString());
-
-                //Checking the response is successful or not which is sent using HttpClient  
+                                
                 if (Res.IsSuccessStatusCode)
-                {
-                    //Storing the response details recieved from web api   
-                    var TaskResponse = Res.Content.ReadAsStringAsync().Result;
-
-                    //Deserializing the response recieved from web api and storing into the Employee list  
+                {                
+                    var TaskResponse = Res.Content.ReadAsStringAsync().Result;                
                     TaskInfo = JsonConvert.DeserializeObject<DevSchool.Models.Task>(TaskResponse);
-                }
-
-                return View(TaskInfo);
+                }                
             }
+
+            return View(TaskInfo);
         }
 
         // POST: Movies/Delete/5                
