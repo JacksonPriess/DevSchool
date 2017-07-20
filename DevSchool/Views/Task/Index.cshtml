@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<DevSchool.Models.Task>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tarefas";
 }
 
-<h2>Index</h2>
+<h2>Lista de tarefas</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Incluir tarefa", "Create")
 </p>
 
 <table class="table">
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.CreationDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) 
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Excluir", "Delete", new { id = item.Id }) 
             </td>
         </tr>
     }
